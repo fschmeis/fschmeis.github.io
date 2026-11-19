@@ -87,7 +87,7 @@ h2 em{color:var(--accent)}
 .rv{transition:opacity .9s cubic-bezier(.2,.7,.1,1),transform .9s cubic-bezier(.2,.7,.1,1)}
 .rv.pre{opacity:0;transform:translateY(28px)}
 .side-col{position:relative}
-.piano-wrap{position:relative;margin-top:30px;max-width:290px}
+.piano-wrap{position:relative;margin-top:22px;max-width:360px}
 .piano{padding:0}
 .keys{position:relative;display:flex;gap:2px;height:96px;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 .k{all:unset;box-sizing:border-box;cursor:pointer;transition:background-color .2s}
@@ -96,7 +96,19 @@ h2 em{color:var(--accent)}
 .k.b{position:absolute;top:0;z-index:1;width:calc(100%/var(--n)*.58);height:60%;left:calc(100%/var(--n)*var(--x) - 100%/var(--n)*.29);background:var(--ebony);border-radius:0 0 3px 3px;box-shadow:0 0 0 2px var(--bg)}
 .k.b.on{background:var(--accent);transition:none}
 .k:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
-.hint{margin:12px 0 0;font-size:.82rem;color:var(--muted)}
+.pctl{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:.82rem;color:var(--muted)}
+.pctl button{all:unset;cursor:pointer;color:var(--muted);transition:color .2s,background-color .2s}
+.pctl button:hover{color:var(--ink)}
+.pctl button:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.pctl .pedal{padding:3px 12px;border:1px solid var(--line)!important;border-radius:99px;touch-action:none;user-select:none;-webkit-user-select:none}
+.pctl .pedal.on{background:var(--accent);color:var(--bg)!important;border-color:var(--accent)!important}
+.oct{display:flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
+.oct button{width:26px;height:26px;text-align:center;line-height:26px;border-radius:50%;font-size:1rem}
+.oct button:hover{background:var(--bg2)}
+#octave{min-width:2.2em;text-align:center;color:var(--ink);display:inline-block}
+#octave.bump{animation:bump .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes bump{from{transform:translateY(-3px);opacity:.4}to{transform:none;opacity:1}}
+.hint{margin:10px 0 0;font-size:.8rem;color:var(--muted)}
 .hint-t{display:none}
 @media (hover:none){.hint-k{display:none}.hint-t{display:inline}}
 .puff{position:absolute;top:2px;width:9px;height:9px;margin-left:-4.5px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;animation:puff 1.3s cubic-bezier(.2,.7,.2,1) forwards}
