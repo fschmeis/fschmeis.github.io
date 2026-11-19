@@ -26,14 +26,13 @@ const core=document.createElementNS(NS,'circle');core.setAttribute('r',16);core.
 const g=document.createElementNS(NS,'g');burst.querySelectorAll('*').forEach(n=>g.appendChild(n));burst.appendChild(g);
 
 // Motion: time + scroll
-const arcs=document.getElementById('arcs'), prog=document.getElementById('progress');
+const prog=document.getElementById('progress');
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function frame(t){
   const y=scrollY, max=document.documentElement.scrollHeight-innerHeight;
   prog.style.transform=`scaleX(${max>0?y/max:0})`;
   if(!still){
     g.setAttribute('transform',`rotate(${t*0.004+y*0.06})`);
-    arcs.style.transform=`translateY(${Math.max(0,60-y*0.06)}px)`;
     requestAnimationFrame(frame);
   }
 }
