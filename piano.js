@@ -69,6 +69,7 @@
     keys[m].classList.add('on');
     if(voices[m])damp(m);
     load();
+    if(!ctx){puff(m);return;}
     if(ctx.state==='suspended')ctx.resume();
     const vel=.55+Math.random()*.2, at=performance.now();
     if(Object.keys(bufs).length)sound(m,vel);
