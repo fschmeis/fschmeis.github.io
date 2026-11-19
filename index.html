@@ -90,18 +90,6 @@
     <div><span class="eyebrow">Outside work</span></div>
     <div>
       <h2 class="rv">When I’m not working</h2>
-      <div class="piano-wrap rv">
-        <div class="piano" id="piano" role="group" aria-label="A small piano you can play">
-          <div class="keys" id="keys"></div>
-        </div>
-        <div class="pside">
-          <p class="hint"><span class="hint-k">It plays. Keys A to L, space is the pedal, ↑ ↓ change the octave.</span><span class="hint-t">It plays. Tap the keys, hold “Pedal” to let notes ring.</span></p>
-          <div class="pctl">
-            <button type="button" class="pedal" id="pedal" title="Sustain pedal (hold, or hold the space bar)">Pedal</button>
-            <span class="oct"><button type="button" data-oct="-1" aria-label="Octave down">−</button><span id="octave" aria-live="polite">C4</span><button type="button" data-oct="1" aria-label="Octave up">+</button></span>
-          </div>
-        </div>
-      </div>
       <div class="facets">
         <div class="facet rv"><h3><span class="dot" style="background:var(--accent)"></span>Karate</h3><p>I’ve been training for over 20 years, and played table tennis for a while as well. Once I’m into something, I usually stick with it.</p></div>
         <div class="facet rv"><h3><span class="dot" style="background:var(--olive)"></span>Music</h3><p>I play the piano and listen to a bit of everything, from metalcore to EDM. Ideally on vinyl.</p></div>
@@ -109,6 +97,20 @@
         <div class="facet rv"><h3><span class="dot" style="background:var(--ink)"></span>At home</h3><p>Plants, lots of them. Looking after them is one of the more relaxing parts of my week.</p></div>
       </div>
       <p class="aside rv">Other than that, I go running, cook a lot, read fantasy and watch films.</p>
+      <div class="piano-wrap rv">
+        <div class="piano-top">
+          <div class="octs" role="radiogroup" aria-label="Octave"><button type="button" role="radio" data-o="-2" aria-label="Octave C2" title="C2"></button><button type="button" role="radio" data-o="-1" aria-label="Octave C3" title="C3"></button><button type="button" role="radio" data-o="0" aria-label="Octave C4" title="C4"></button><button type="button" role="radio" data-o="1" aria-label="Octave C5" title="C5"></button><button type="button" role="radio" data-o="2" aria-label="Octave C6" title="C6"></button></div>
+          <button type="button" class="help" id="phelp" aria-expanded="false" aria-describedby="ptip">?</button>
+          <div class="tip" id="ptip" role="tooltip">
+            <span class="tip-k"><kbd>A</kbd>–<kbd>L</kbd> play<br><kbd>Space</kbd> pedal<br><kbd>↑</kbd><kbd>↓</kbd> octave</span>
+            <span class="tip-t">Tap the keys.<br>Hold the pedal to let notes ring.<br>The dots change the octave.</span>
+          </div>
+        </div>
+        <div class="piano" id="piano" role="group" aria-label="A small piano you can play">
+          <div class="keys" id="keys"></div>
+        </div>
+        <button type="button" class="pedal" id="pedal" aria-label="Sustain pedal, hold to let notes ring"><i></i></button>
+      </div>
     </div>
   </div>
 </section>

@@ -2,7 +2,7 @@
 // Samples: tonejs-instruments piano (MIT), trimmed. One sample every major third, the notes in between are pitched.
 (()=>{
   const keysEl=document.getElementById('keys'), wrap=keysEl.closest('.piano-wrap');
-  const octEl=document.getElementById('octave'), pedalEl=document.getElementById('pedal');
+  const dots=[...document.querySelectorAll('.octs [data-o]')], pedalEl=document.getElementById('pedal');
   const COUNT=17, BASE=60;                    // C4 is the first key at octave 0
   const MIN_OCT=-2, MAX_OCT=2;
   const SAMPLES={};                           // midi -> file
@@ -25,7 +25,7 @@
   keysEl.style.setProperty('--n',wi);
   function label(){
     keys.forEach((b,i)=>{const m=BASE+oct*12+i;b.setAttribute('aria-label',NAMES[m%12]+(Math.floor(m/12)-1));});
-    if(octEl)octEl.textContent='C'+(4+oct);
+    dots.forEach(d=>{const on=+d.dataset.o===oct;d.setAttribute('aria-checked',on);d.tabIndex=on?0:-1;});
   }
   label();
 
@@ -106,11 +106,11 @@
     if(pedalEl)pedalEl.classList.toggle('on',on);
     if(!on&&ctx){sustained.forEach(m=>{if(![...held.values()].includes(m))stopVoice(m,.18);});sustained.clear();}
   }
-  function shift(d){
-    const n=Math.max(MIN_OCT,Math.min(MAX_OCT,oct+d));if(n===oct)return;
+  const shift=d=>setOct(oct+d);
+  function setOct(v){
+    const n=Math.max(MIN_OCT,Math.min(MAX_OCT,v));if(n===oct)return;
     [...held.keys()].forEach(release);
     oct=n;lastUse=performance.now();label();preload();
-    if(octEl){octEl.classList.remove('bump');void octEl.offsetWidth;octEl.classList.add('bump');}
   }
 
   // mouse and touch, including sliding across the keys
@@ -176,5 +176,16 @@
     pedalEl.addEventListener('keyup',e=>{if(e.key==='Enter')setSustain(false);});
   }
   // octave buttons
-  document.querySelectorAll('[data-oct]').forEach(b=>b.addEventListener('click',()=>shift(+b.dataset.oct)));
+  dots.forEach(d=>{
+    d.addEventListener('click',()=>setOct(+d.dataset.o));
+    d.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();shift(e.key==='ArrowRight'?1:-1);dots.find(x=>+x.dataset.o===oct).focus();}});
+  });
+
+  // help tooltip: hover or focus on pointer devices, tap to toggle on touch
+  const help=document.getElementById('phelp');
+  if(help){
+    help.addEventListener('click',()=>help.setAttribute('aria-expanded',help.getAttribute('aria-expanded')!=='true'));
+    document.addEventListener('pointerdown',e=>{if(!help.contains(e.target))help.setAttribute('aria-expanded','false');});
+    help.addEventListener('keydown',e=>{if(e.key==='Escape')help.setAttribute('aria-expanded','false');});
+  }
 })();
