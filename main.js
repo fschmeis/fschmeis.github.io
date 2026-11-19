@@ -1,8 +1,8 @@
 const jobs=[
-  ["2024 — heute","Softwareentwickler","Allegro Packets","Ich arbeite hier an der Weboberfläche. Seit Oktober 2025 als Softwareentwickler fest im Team."],
-  ["2019 — 2024","Entwicklung, PMO & Vertrieb","ccc software gmbh","Angefangen als Werkstudent, dann Junior-Entwickler mit Angular und .NET. Später hab ich mich um Projektplanung gekümmert, Software bei Kunden vorgestellt und im MES-Consulting mitgeholfen."],
-  ["2018 — 2019","Werkstudent Softwareentwicklung","ORSOFT GmbH","Mein erster Job neben dem Studium. Python-Doku automatisiert, einen SQLite-Adapter gebaut und C++-Tests geschrieben."],
-  ["2017 — 2025","Studium","HTWK Leipzig","Bachelor in Medieninformatik, danach Master in Informatik."]
+  ["2024 — now","Software Developer","Allegro Packets","I work on the web interface of our product. Since October 2025 as a full-time developer on the team."],
+  ["2019 — 2024","Development, PMO & Sales","ccc software gmbh","I started as a student developer and became a junior developer working with Angular and .NET. Later I also took care of project planning, presented our software to customers and helped out with MES consulting."],
+  ["2018 — 2019","Student Developer","ORSOFT GmbH","My first job alongside university. I automated Python API docs, built a SQLite adapter and wrote C++ tests."],
+  ["2017 — 2025","Studies","HTWK Leipzig","Bachelor’s in media informatics, then a Master’s in computer science."]
 ];
 const ul=document.getElementById('jobs');
 jobs.forEach(([y,r,c,d],i)=>{
@@ -12,7 +12,7 @@ jobs.forEach(([y,r,c,d],i)=>{
   ul.appendChild(li);
 });
 
-// Sternburst
+// Starburst
 const NS='http://www.w3.org/2000/svg', burst=document.getElementById('burst');
 for(let i=0;i<16;i++){
   const a=i/16*Math.PI*2, L=i%2?120:180, s=i%4===0?2:1.2;
@@ -25,14 +25,7 @@ for(let i=0;i<16;i++){
 const core=document.createElementNS(NS,'circle');core.setAttribute('r',16);core.setAttribute('fill','none');core.setAttribute('stroke','currentColor');core.setAttribute('stroke-width',1.5);burst.appendChild(core);
 const g=document.createElementNS(NS,'g');burst.querySelectorAll('*').forEach(n=>g.appendChild(n));burst.appendChild(g);
 
-// Schallplatte
-const vinyl=document.getElementById('vinyl');
-vinyl.innerHTML='<circle r="98" fill="#121212" stroke="var(--line)" stroke-width="1.5"/>'+
-  Array.from({length:14},(_,i)=>`<circle r="${40+i*4.2}" fill="none" stroke="#fff" stroke-opacity="${i%3?.07:.16}" stroke-width=".8"/>`).join('')+
-  '<path d="M-70 -60 A92 92 0 0 1 10 -91" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="6" stroke-linecap="round"/>'+
-  '<g id="label"><circle r="32" fill="var(--rust)"/><path d="M-32 0a32 32 0 0 1 64 0z" fill="var(--accent)"/><text y="-11" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="11" fill="#121212">Felix</text><text y="20" text-anchor="middle" font-family="Geist,sans-serif" font-size="6" letter-spacing="1" fill="#121212">SEITE A · 33⅓</text></g><circle r="2.5" fill="#121212"/>';
-
-// Bewegung: Zeit + Scrollen
+// Motion: time + scroll
 const arcs=document.getElementById('arcs'), prog=document.getElementById('progress');
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function frame(t){
@@ -41,14 +34,13 @@ function frame(t){
   if(!still){
     g.setAttribute('transform',`rotate(${t*0.004+y*0.06})`);
     arcs.style.transform=`translateY(${Math.max(0,60-y*0.06)}px)`;
-    vinyl.style.transform=`rotate(${t*0.02+y*0.25}deg)`;
     requestAnimationFrame(frame);
   }
 }
 requestAnimationFrame(frame);
 if(still)addEventListener('scroll',()=>requestAnimationFrame(frame),{passive:true});
 
-// Beim Scrollen einblenden (nur was beim Laden unterhalb des Bildschirms liegt)
+// Fade in on scroll (only what starts below the fold)
 if('IntersectionObserver' in window && !still){
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target);}}),{rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv').forEach((el,i)=>{
@@ -58,7 +50,7 @@ if('IntersectionObserver' in window && !still){
 
 const root=document.documentElement, tb=document.getElementById('theme');
 const isLight=()=>root.dataset.theme?root.dataset.theme==='light':matchMedia('(prefers-color-scheme: light)').matches;
-const lab=()=>tb.textContent=isLight()?'Dunkel':'Hell';
+const lab=()=>tb.textContent=isLight()?'Dark':'Light';
 try{const s=localStorage.getItem('theme');if(s)root.dataset.theme=s;}catch(e){}
 lab();
 tb.onclick=()=>{root.dataset.theme=isLight()?'dark':'light';lab();try{localStorage.setItem('theme',root.dataset.theme);}catch(e){}};
@@ -66,6 +58,6 @@ tb.onclick=()=>{root.dataset.theme=isLight()?'dark':'light';lab();try{localStora
 const cb=document.getElementById('copy');
 cb.onclick=()=>{
   const m=document.getElementById('mail');
-  navigator.clipboard.writeText(m.textContent).then(()=>{cb.textContent='Kopiert';setTimeout(()=>cb.textContent='Adresse kopieren',1800);})
-  .catch(()=>{const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Markiert';});
+  navigator.clipboard.writeText(m.textContent).then(()=>{cb.textContent='Copied';setTimeout(()=>cb.textContent='Copy address',1800);})
+  .catch(()=>{const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selected';});
 };
