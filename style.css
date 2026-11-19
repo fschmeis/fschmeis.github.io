@@ -2,7 +2,7 @@
 @font-face{font-family:"Geist";font-style:normal;font-weight:300 500;font-display:swap;src:url(fonts/geist.woff2) format("woff2")}
 @font-face{font-family:"Geist Mono";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/geist-mono.woff2) format("woff2")}
 
-/* Ornaments: mid-century starburst, a playable piano and a hanging plant */
+/* Ornaments: a pendant lamp and a mobile up top, a playable piano and a hanging plant */
 /* Layout: calm magazine page, dark first, large serif headings, narrow text column */
 :root{
   --bg:#0e1311; --bg2:#141a17; --ink:#ece8df; --muted:#9a9f97; --line:#28302c; --accent:#c9a46a; --rust:#b8693f; --olive:#8d8a55; --leaf:#5f7a4a; --stem:#6d7a52;
@@ -80,9 +80,8 @@ h2 em{color:var(--accent)}
 
 .progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:20}
 .mark svg{display:block;width:30px;height:30px;color:var(--accent)}
-.hero{position:relative;overflow:hidden}
+.hero{position:relative}
 .hero>*{position:relative;z-index:1}
-.burst{position:absolute!important;z-index:0!important;right:-150px;top:-150px;width:min(480px,80vw);height:auto;color:var(--accent);opacity:.45;pointer-events:none}
 .about{position:relative}
 #ueber{position:relative;overflow:hidden}
 .rv{transition:opacity .9s cubic-bezier(.2,.7,.1,1),transform .9s cubic-bezier(.2,.7,.1,1)}
@@ -115,7 +114,7 @@ h2 em{color:var(--accent)}
 .facet p{margin:0;color:var(--muted);max-width:44ch}
 .facet .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:10px;vertical-align:.15em}
 .aside{margin-top:40px;color:var(--muted);max-width:60ch}
-@media (max-width:820px){.facets{grid-template-columns:minmax(0,1fr)}.burst{opacity:.3;right:-120px;top:-110px}}
+@media (max-width:820px){.facets{grid-template-columns:minmax(0,1fr)}}
 
 .contact h2{font-size:clamp(2.6rem,8vw,6.5rem);line-height:.95;margin-bottom:36px}
 .mailrow{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:baseline}
@@ -139,3 +138,27 @@ footer{padding-block:28px;display:flex;justify-content:space-between;gap:16px;fl
   .plant{position:relative;float:right;width:92px;right:auto;margin:calc(-1*clamp(56px,9vw,112px)) -6px 0 10px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv.pre{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+/* Hero ornaments: pendant lamp (pull cord switches light/dark) and a Calder-style mobile (shapes link to sections) */
+.deco{position:absolute!important;z-index:0!important;top:-34px;right:0;-webkit-mask-image:linear-gradient(#0000,#000 48px);mask-image:linear-gradient(#0000,#000 48px);display:flex;align-items:flex-start;gap:clamp(8px,3vw,40px);pointer-events:none}
+.deco svg{display:block;height:auto;overflow:visible}
+.deco .lamp{width:150px}
+.deco .mobile{width:190px}
+.deco[data-variant="lamp"] .mobile,.deco[data-variant="mobile"] .lamp{display:none}
+.deco .hit{pointer-events:auto;cursor:pointer}
+.deco a{pointer-events:auto;cursor:pointer;outline:none}
+.deco a text{font:400 11px var(--sans);fill:var(--muted);opacity:0;transition:opacity .3s}
+.deco a:hover text,.deco a:focus-visible text{opacity:1}
+.deco a:focus-visible .shape{stroke:var(--ink);stroke-width:1.5}
+.glow{transition:opacity .6s}
+@media (max-width:820px){
+  .deco{gap:10px;top:-24px}
+  .hero{padding-top:150px}
+  .deco .lamp{width:96px}
+  .deco .mobile{width:150px}
+  .deco[data-variant="both"] .lamp{width:80px}
+  .deco[data-variant="both"] .mobile{width:130px}
+}
+.variant-switch{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;background:var(--bg);font-size:.8rem}
+.variant-switch a{padding:5px 12px;border-radius:99px;text-decoration:none;color:var(--muted)}
+.variant-switch a[aria-current="true"]{background:var(--bg2);color:var(--ink)}

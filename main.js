@@ -12,32 +12,16 @@ jobs.forEach(([y,r,c,d],i)=>{
   ul.appendChild(li);
 });
 
-// Starburst
-const NS='http://www.w3.org/2000/svg', burst=document.getElementById('burst');
-for(let i=0;i<16;i++){
-  const a=i/16*Math.PI*2, L=i%2?120:180, s=i%4===0?2:1.2;
-  const l=document.createElementNS(NS,'line');
-  l.setAttribute('x1',Math.cos(a)*34);l.setAttribute('y1',Math.sin(a)*34);
-  l.setAttribute('x2',Math.cos(a)*L);l.setAttribute('y2',Math.sin(a)*L);
-  l.setAttribute('stroke','currentColor');l.setAttribute('stroke-width',s);l.setAttribute('stroke-linecap','round');burst.appendChild(l);
-  if(i%2===0){const c=document.createElementNS(NS,'circle');c.setAttribute('cx',Math.cos(a)*(L+10));c.setAttribute('cy',Math.sin(a)*(L+10));c.setAttribute('r',i%4===0?6:3.5);c.setAttribute('fill','currentColor');burst.appendChild(c);}
-}
-const core=document.createElementNS(NS,'circle');core.setAttribute('r',16);core.setAttribute('fill','none');core.setAttribute('stroke','currentColor');core.setAttribute('stroke-width',1.5);burst.appendChild(core);
-const g=document.createElementNS(NS,'g');burst.querySelectorAll('*').forEach(n=>g.appendChild(n));burst.appendChild(g);
-
 // Motion: time + scroll
 const prog=document.getElementById('progress');
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function frame(t){
+function frame(){
   const y=scrollY, max=document.documentElement.scrollHeight-innerHeight;
   prog.style.transform=`scaleX(${max>0?y/max:0})`;
-  if(!still){
-    g.setAttribute('transform',`rotate(${t*0.004+y*0.06})`);
-    requestAnimationFrame(frame);
-  }
 }
-requestAnimationFrame(frame);
-if(still)addEventListener('scroll',()=>requestAnimationFrame(frame),{passive:true});
+frame();
+addEventListener('scroll',()=>requestAnimationFrame(frame),{passive:true});
+addEventListener('resize',frame);
 
 // Fade in on scroll (only what starts below the fold)
 if('IntersectionObserver' in window && !still){
