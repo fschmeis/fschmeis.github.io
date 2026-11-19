@@ -88,12 +88,11 @@
     const m=BASE+oct*12+i;held.set(i,m);lastUse=performance.now();
     keys[i].classList.add('on');
     sustained.delete(m);
-    if(!init()){puff(i);return;}
+    if(!init())return;
     if(ctx.state==='suspended')ctx.resume();
     const vel=.55+Math.random()*.2, at=performance.now();
     if(bufs[nearest(m)])sound(m,vel);
     else preload().then(()=>{if(performance.now()-at<350&&held.get(i)===m)sound(m,vel);});
-    puff(i);
   }
   function release(i){
     if(!held.has(i))return;
@@ -112,17 +111,6 @@
     [...held.keys()].forEach(release);
     oct=n;lastUse=performance.now();label();preload();
     if(octEl){octEl.classList.remove('bump');void octEl.offsetWidth;octEl.classList.add('bump');}
-  }
-
-  // a small ring that rises from the key and fades
-  function puff(i){
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    const r=keys[i].getBoundingClientRect(), w=wrap.getBoundingClientRect();
-    const p=document.createElement('i');p.className='puff';
-    p.style.left=(r.left-w.left+r.width/2)+'px';
-    p.style.setProperty('--dx',(Math.random()*16-8)+'px');
-    wrap.appendChild(p);
-    p.addEventListener('animationend',()=>p.remove());
   }
 
   // mouse and touch, including sliding across the keys
