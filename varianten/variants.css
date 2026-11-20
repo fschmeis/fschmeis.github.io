@@ -1,0 +1,46 @@
+/* Three alternative looks for comparison. Each sets its own palette for dark and light, and its own type. */
+
+/* ---- Grid: Swiss poster. Condensed bold grotesk, black on white, cobalt. ---- */
+:root[data-v="grid"]{--bg:#0f0f10;--bg2:#19191b;--ink:#f0efea;--muted:#9a9993;--line:#2c2c2e;--accent:#7b90ff;--rust:#ff7a4f;--olive:#6fb48a;--ivory:#f0efea;--ebony:#0b0b0c;
+  --serif:"Archivo","Helvetica Neue",Arial,sans-serif;--sans:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"Archivo",ui-monospace,monospace}
+@media (prefers-color-scheme:light){:root[data-v="grid"]:not([data-theme="dark"]){--bg:#f3f2ef;--bg2:#e7e6e2;--ink:#101010;--muted:#5d5d5a;--line:#cfcdc8;--accent:#2343d6;--rust:#e0522b;--olive:#2f6f4f;--ivory:#ffffff;--ebony:#101010}}
+:root[data-v="grid"][data-theme="light"]{--bg:#f3f2ef;--bg2:#e7e6e2;--ink:#101010;--muted:#5d5d5a;--line:#cfcdc8;--accent:#2343d6;--rust:#e0522b;--olive:#2f6f4f;--ivory:#ffffff;--ebony:#101010}
+[data-v="grid"] body{font-weight:400;font-stretch:100%}
+[data-v="grid"] .hero h1,[data-v="grid"] h2,[data-v="grid"] .job .ro,[data-v="grid"] .facet h3,[data-v="grid"] .about .lead,[data-v="grid"] .mail{font-weight:800;font-stretch:72%;letter-spacing:-.02em}
+[data-v="grid"] .hero h1{line-height:.84;font-size:clamp(3.6rem,12vw,10.5rem)}
+[data-v="grid"] .facet h3{font-size:1.35rem}
+[data-v="grid"] section{border-bottom-color:var(--ink)}
+[data-v="grid"] .hero{border-bottom:2px solid var(--ink)}
+[data-v="grid"] .job .ro{font-size:clamp(1.3rem,2.2vw,1.7rem)}
+[data-v="grid"] .facet .dot{border-radius:0}
+[data-v="grid"] .portrait img{filter:grayscale(1) contrast(1.05)}
+[data-v="grid"] .portrait:hover img{filter:none}
+
+/* ---- Print: mid-century poster. Teal ink on ochre paper, chunky warm serif, an arched portrait. ---- */
+:root[data-v="print"]{--bg:#172523;--bg2:#1f302d;--ink:#efe5cf;--muted:#a3ab9f;--line:#2f413d;--accent:#e59a4c;--rust:#d8664a;--olive:#6fb0a4;--ivory:#efe5cf;--ebony:#10201d;
+  --serif:"Young Serif",Georgia,serif;--sans:"Karla",ui-sans-serif,system-ui,sans-serif}
+@media (prefers-color-scheme:light){:root[data-v="print"]:not([data-theme="dark"]){--bg:#ebe1ca;--bg2:#e1d5ba;--ink:#1d3532;--muted:#5a6a63;--line:#cbbd9c;--accent:#c9661f;--rust:#b4432b;--olive:#2f6b63;--ivory:#f8f2e4;--ebony:#1d3532}}
+:root[data-v="print"][data-theme="light"]{--bg:#ebe1ca;--bg2:#e1d5ba;--ink:#1d3532;--muted:#5a6a63;--line:#cbbd9c;--accent:#c9661f;--rust:#b4432b;--olive:#2f6b63;--ivory:#f8f2e4;--ebony:#1d3532}
+[data-v="print"] body{font-weight:400}
+[data-v="print"] .hero h1{letter-spacing:-.03em;line-height:.9;font-size:clamp(3rem,7.8vw,7.2rem)}
+[data-v="print"] h2{letter-spacing:-.02em}
+[data-v="print"] .portrait{border-radius:999px 999px 0 0}
+[data-v="print"] .facet .dot{width:12px;height:12px}
+[data-v="print"] .cbtn{border-color:var(--ink)}
+
+/* ---- Moss: quiet and dark. Deep green, high-contrast display serif, dusty rose. ---- */
+:root[data-v="moss"]{--bg:#131b16;--bg2:#1a241e;--ink:#e3e8dc;--muted:#95a093;--line:#25312a;--accent:#e2a2ae;--rust:#d98b6a;--olive:#a8b77a;--ivory:#e3e8dc;--ebony:#0d130f;
+  --serif:"Gloock",Georgia,serif;--sans:"Figtree",ui-sans-serif,system-ui,sans-serif}
+@media (prefers-color-scheme:light){:root[data-v="moss"]:not([data-theme="dark"]){--bg:#e8ece2;--bg2:#dde4d6;--ink:#17211a;--muted:#55625a;--line:#c4cdbd;--accent:#a3485f;--rust:#a65a3c;--olive:#5d6d34;--ivory:#f6f8f2;--ebony:#17211a}}
+:root[data-v="moss"][data-theme="light"]{--bg:#e8ece2;--bg2:#dde4d6;--ink:#17211a;--muted:#55625a;--line:#c4cdbd;--accent:#a3485f;--rust:#a65a3c;--olive:#5d6d34;--ivory:#f6f8f2;--ebony:#17211a}
+[data-v="moss"] body{font-weight:300}
+[data-v="moss"] .hero h1{letter-spacing:-.035em;line-height:.88;font-size:clamp(3.2rem,8.6vw,8rem)}
+[data-v="moss"] h2{letter-spacing:-.025em}
+[data-v="moss"] .portrait{aspect-ratio:3/4}
+[data-v="moss"] .portrait img{filter:saturate(.75)}
+
+/* preview switcher */
+.vswitch{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:2px;padding:4px;border:1px solid var(--line);border-radius:99px;background:var(--bg);box-shadow:0 8px 24px -12px rgba(0,0,0,.4);font:400 .82rem var(--sans);max-width:calc(100vw - 32px)}
+.vswitch a{padding:6px 14px;border-radius:99px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.vswitch a[aria-current="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:420px){.vswitch a{padding:6px 10px}}
